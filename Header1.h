@@ -17,7 +17,7 @@ public:
 			push_back(item);
 		}
 	}
-	//constuction realizôcii masiom
+	//constuction realizÃ´cii masiom
 	tlist(const LT* arr, int size) {
 		init();
 		for (int i = 0; i < size; ++i) {
@@ -81,3 +81,93 @@ template <typename LT>
 			tl.init();
 		}return size();
 	}
+
+template<typename LT>
+tlist<LT>::tlist()
+{
+	init();
+}
+template<typename LT>
+tlist<LT>::tlist(const tlist<LT>& tl)
+{
+	init(); copy(tl);
+}
+template<typename LT>
+tlist<LT>::tlist(tlist<LT>&& tl)
+{
+	init();
+	move(tl);
+}
+template<typename LT>
+tlist<LT>::~tlist()
+{
+	destroy(m_pFirst);
+}
+template<typename LT>
+void tlist<LT>::init()
+{
+	m_pFirst = nullptr;
+}
+template<typename LT>
+void tlist<LT>::destroy(titem* pi)
+{
+	titem* p;
+	while (pi)
+	{
+		p = pi->m_pNext;
+		delete pi; 
+		pi = p;
+	}
+}
+template<typename LT>
+int tlist<LT>::push_back(LT val)
+{
+	titem* pLast, * pNew;
+	pNew = new titem; 
+	if (pNew) 
+	{
+		if (m_pFirst)
+		{
+			pLast = m_pFirst;
+			while (pLast->m_pNext)
+			{
+				pLast = pLast->m_pNext;
+			}
+			pLast->m_pNext = pNew;
+		}
+		else 
+		{
+			m_pFirst = pNew;
+		}
+		pNew->m_value = val; 
+		return size() - 1; 
+	}
+	return -1; 
+}
+template<typename LT>
+int tlist<LT>::size(void) 
+{
+	titem* p; int s = 0;
+	p = m_pFirst; 
+	while (p) 
+	{
+		p = p->m_pNext; 
+		s++; 
+	}
+	return s;
+}
+template<typename LT>
+int tlist<LT>::copy(const tlist<LT>& lt)
+{
+	if (this == &lt)return size(); 
+	titem* p;
+	tlist nl;
+	p = lt.m_pFirst; 
+	while (p) 
+	{
+		if (nl.push_back(p->m_value) < 0)return 0;
+		
+		p = p->m_pNext; 
+	}
+	return move(nl);
+}
