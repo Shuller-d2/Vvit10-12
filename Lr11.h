@@ -18,7 +18,7 @@ public:
 			push_back(item);
 		}
 	}
-	//constuction realizôcii masiom
+	//constuction realizÃ´cii masiom
 	tlist(const LT* arr, int size) {
 		init();
 		for (int i = 0; i < size; ++i) {
@@ -239,16 +239,17 @@ int tlist<LT>::copy(const tlist<LT>& lt)
 
 
 //lr11-------------------------------------------
+//operator scalar product
 template<typename LT>
 double operator*(tlist<LT>& vec1, tlist<LT>& vec2) {
 	return scalar_product(vec1, vec2);
 }
-
+//operatoe normi
 template<typename LT>
 double tlist<LT>::operator()() {
 	return this->norma();
 }
-
+//function scalar product
 template <typename LT>
 double scalar_product(tlist<LT>& vec1, tlist<LT>& vec2) {
 	double res = 0;
@@ -261,9 +262,9 @@ double scalar_product(tlist<LT>& vec1, tlist<LT>& vec2) {
 	}
 	return res;
 }
-
+//function norma
 template<typename LT>
 double tlist<LT>::norma() {
 	return sqrt(scalar_product(*this, *this));
 }
-//lr11-----------------------------------------------------
+//-----------------------------------------------------
